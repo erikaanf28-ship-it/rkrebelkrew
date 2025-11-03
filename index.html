@@ -1,0 +1,1156 @@
+<!-- Modal para ver imagen ampliada -->
+<div id="imageModal" class="image-modal">
+  <span class="close-modal" onclick="closeFullscreen()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+<html lang="es"> 
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>RK — Street Gothic Wear</title> 
+
+<!-- Fuentes --> 
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"> 
+
+<!-- Snipcart CSS --> 
+<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.3/default/snipcart.css" /> 
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --panel: #1a1a1a;
+  --accent: #b80f4a;
+  --muted: #bbb;
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--bg);
+  color: white;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: #000;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  filter: drop-shadow(0 0 6px rgba(184,15,74,.4));
+}
+
+.icons button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color .2s;
+}
+
+.icons button:hover {
+  color: var(--accent);
+}
+
+.hero {
+  position: relative;
+  min-height: 380px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,1)), url('images/hero.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: 'UnifrakturCook', serif;
+  font-size: 72px;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(184,15,74,.5);
+  margin: 0;
+}
+
+.cta {
+  margin-top: 18px;
+  display: inline-block;
+  padding: 14px 34px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all .25s;
+}
+
+.cta:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 12px rgba(184,15,74,.5);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section-title {
+  font-family: 'UnifrakturCook';
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: var(--accent);
+  text-align: center;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255,255,255,0.05);
+  transition: transform .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.product-thumb {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 12px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-title {
+  margin: 14px 0 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-meta {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.buy-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.buy-btn:hover {
+  background: #d9145d;
+}
+
+select {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  font-size: 14px;
+}
+
+@media(max-width:600px) {
+  .hero h1 {
+    font-size: 48px;
+  }
+  .logo img {
+    height: 40px;
+  }
+}
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px; /* distancia desde el borde izquierdo */
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.topbar .logo {
+  margin-left: 60px; /* deja espacio para el botón */
+}
+
+</style>
+</head> 
+<body> 
+<!-- Botón del menú lateral -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<!-- Menú lateral -->
+<nav class="sidebar" id="sidebar">
+  <button class="close-btn" onclick="toggleMenu()">✕</button>
+  <ul>
+  <li><a href="#inicio">INICIO</a></li>
+ <li><a href="#quienes-somos">¿QUIÉNES SOMOS?</a></li>
+  <li><a href="#productos">CATÁLOGO</a></li>
+  <li><a href="#contacto">CONTACTO</a></li>
+</ul>
+</nav>
+
+<!-- Script para abrir/cerrar el menú -->
+<script>
+function toggleMenu() {
+  document.getElementById('sidebar').classList.toggle('active');
+}
+</script>
+
+<!-- CSS necesario -->
+<style>
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: #111;
+  transition: left 0.3s ease;
+  z-index: 100;
+  padding: 30px 20px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar .close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 60px 0 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+
+.sidebar ul li a:hover {
+  color: var(--accent);
+}
+.contacto {
+  background: var(--panel);
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: var(--radius);
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 0 12px rgba(184,15,74,0.3);
+}
+
+.contacto p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.contact-links a {
+  display: inline-block;
+  margin: 0 12px;
+  padding: 10px 20px;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.contact-links a:hover {
+  background: #2a0a1f; /* rosa oscuro de fondo */
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: var(--radius);
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 0 12px rgba(184,15,74,0.5); /* neón suave */
+}
+
+.contacto p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.contact-links a {
+  display: inline-block;
+  margin: 0 12px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: #4d0f3d; /* rosa oscuro */
+  color: #ff4fc4;       /* rosa brillante */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.25s;
+  box-shadow: 0 0 6px rgba(255,79,196,0.5);
+}
+
+.contact-links a:hover {
+  background: #ff4fc4;   /* rosa brillante de fondo */
+  color: #2a0a1f;        /* texto rosa oscuro */
+  box-shadow: 0 0 20px rgba(255,79,196,0.7);
+  transform: translateY(-3px);
+}
+.quienes-somos {
+  background: linear-gradient(to bottom right, #0a0a0a, #1c1c1c);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+  border-top: 2px solid #ff4fc4;
+  border-bottom: 2px solid #ff4fc4;
+  box-shadow: 0 0 25px rgba(255, 79, 196, 0.2);
+}
+
+.quienes-somos h2 {
+  font-size: 2.4rem;
+  color: #ff4fc4;
+  text-shadow: 0 0 12px rgba(255, 79, 196, 0.6);
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.quienes-somos p {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.quienes-somos strong {
+  color: #ff4fc4;
+}
+
+.quienes-somos .quienes-img {
+  margin-top: 40px;
+}
+
+.quienes-somos .quienes-img img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 79, 196, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.quienes-somos .quienes-img img:hover {
+  transform: scale(1.03);
+}
+.quienes-somos .pregunta {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: #ff4fc4;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 79, 196, 0.5);
+}
+
+.quienes-somos .pregunta-final {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 18px;
+}
+.quienes-somos strong {
+  color: #ffb6c1; /* rosa claro suave */
+  font-weight: 700;
+}
+.marca {
+  color: #ff4fc4; /* fucsia brillante */
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+/* 🎞️ SLIDER */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: var(--radius, 12px);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  height: 240px;
+  object-fit: contain;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+}
+
+.prev-btn,
+.next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  z-index: 2;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background: rgba(184, 15, 74, 0.7);
+}
+
+.prev-btn { left: 8px; }
+.next-btn { right: 8px; }
+
+/* 🔍 ZOOM MODAL */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.9);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.image-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 79, 196, 0.6);
+  animation: zoomIn 0.3s ease-in-out;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #ff4fc4;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes zoomIn {
+  from {transform: scale(0.8);}
+  to {transform: scale(1);}
+}
+
+/* 🔍 NUEVO - full screen overlay mejorado */
+.fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.fullscreen-img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 79, 196, 0.7);
+  animation: fadeIn 0.3s ease-in-out;
+}
+/* 💬 SECCIÓN CONTACTO */
+.contact-section {
+  background: #0a0a0a;
+  color: white;
+  padding: 60px 20px;
+  border-top: 2px solid #ff4fc4;
+  text-align: center;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.contact-info {
+  flex: 1 1 300px;
+  max-width: 400px;
+  text-align: left;
+}
+
+.contact-info a {
+  color: #ff4fc4;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  flex: 1 1 300px;
+  max-width: 400px;
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 79, 196, 0.3);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ff4fc4;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: white;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #bbb;
+}
+
+.contact-form button {
+  background: #ff4fc4;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.contact-form button:hover {
+  background: #ff72cf;
+}
+
+</style>
+
+<header class="topbar"> 
+<div class="logo"><img src="images/logo.png" alt="RK logo"></div> 
+<div class="icons"> 
+<button class="snipcart-checkout" aria-label="cart">🛍️</button> 
+</div> 
+</header> 
+
+<section class="hero"> 
+<div> 
+<h1>Bienvenido a RK Street Gothic Wear</h1>
+<a href="#productos" class="cta">Explora nuestra colección</a>
+</div> 
+</section> 
+<section id="quienes-somos" class="quienes-somos">
+  <h2>¿QUIÉNES SOMOS?</h2>
+  <p>
+  Somos <span class="marca">RK — REBEL KREW</span>, una marca de ropa en contra de la monotonía de la sociedad.
+</p>
+  <p>
+    Si buscas colores "soft" y diseños "elegantes y simples", esta no es tu web.
+  </p>
+
+  <p>
+    Ofrecemos <strong>diseños únicos y creativos</strong>, con una estética rebelde que no sigue un estilo definido.
+  </p>
+
+  <p>
+    Cada prenda está diseñada con <strong>actitud</strong> y <strong>detalle</strong>.  
+    La elección la haces tú.
+  </p>
+
+  <p>
+    <strong>No seguimos tendencias, las creamos.</strong>
+  </p>
+
+  <p>
+    Nuestra misión es vestir a quienes desafían lo común y marcan su propio camino.
+  </p>
+
+  <p class="pregunta">
+    Como nuestro eslogan dice:  
+    <em>"𝐍𝐨 𝐯𝐞𝐬𝐭𝐢𝐦𝐨𝐬 𝐩𝐢𝐣𝐨, 𝐯𝐞𝐬𝐭𝐢𝐦𝐨𝐬 𝐜𝐚𝐥𝐥𝐞"</em>
+  <p>
+  <span class="pregunta-final">¿Seguirás dentro del rebaño?</span>
+</p>
+<!-- CAMISETA RK GLITCH -->
+</section>
+
+<main class="container" id="productos">
+  <h2 class="section-title">Colección RK</h2>
+  <div class="products-grid">
+
+    <!-- CAMISETA RK GLITCH -->
+    <article class="card">
+      <div class="product-thumb slider">
+        <button class="prev-btn">◀</button>
+        <div class="slides">
+          <!-- VERDE MILITAR -->
+          <img src="images/camiseta-verde.png" alt="Frontal Verde Militar" class="slide active" onclick="openFullscreen(this)">
+          <img src="images/camiseta-verde-back.png" alt="Back Verde Militar" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-verde-detail.png" alt="Detalle Verde Militar" class="slide" onclick="openFullscreen(this)">
+
+          <!-- MARRON -->
+          <img src="images/camiseta-marron.png" alt="Frontal Marron" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-marron-back.png" alt="Back Marron" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-marron-detail.png" alt="Detalle Marron" class="slide" onclick="openFullscreen(this)">
+
+          <!-- MORADO -->
+          <img src="images/camiseta-morado.png" alt="Frontal Morado" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-morado-back.png" alt="Back Morado" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-morado-detail.png" alt="Detalle Morado" class="slide" onclick="openFullscreen(this)">
+
+          <!-- ROSA -->
+          <img src="images/camiseta-rosa.png" alt="Frontal Rosa" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-rosa-back.png" alt="Back Rosa" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-rosa-detail.png" alt="Detalle Rosa" class="slide" onclick="openFullscreen(this)">
+
+          <!-- FUCSIA -->
+          <img src="images/camiseta-fucsia.png" alt="Frontal Fucsia" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-fucsia-back.png" alt="Back Fucsia" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-fucsia-detail.png" alt="Detalle Fucsia" class="slide" onclick="openFullscreen(this)">
+
+          <!-- NEGRO -->
+          <img src="images/camiseta-negro.png" alt="Frontal Negro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-negro-back.png" alt="Back Negro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-negro-detail.png" alt="Detalle Negro" class="slide" onclick="openFullscreen(this)">
+
+          <!-- GRIS OSCURO -->
+          <img src="images/camiseta-gris-oscuro.png" alt="Frontal Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-gris-oscuro-back.png" alt="Back Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-gris-oscuro-detail.png" alt="Detalle Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+
+          <!-- GRIS CLARO -->
+          <img src="images/camiseta-gris-claro.png" alt="Frontal Gris Claro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-gris-claro-back.png" alt="Back Gris Claro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/camiseta-gris-claro-detail.png" alt="Detalle Gris Claro" class="slide" onclick="openFullscreen(this)">
+        </div>
+        <button class="next-btn">▶</button>
+      </div>
+
+      <div class="product-title">Camiseta RK GLITCH</div>
+      <div class="product-meta">€19.99</div>
+
+      <label for="color-select">Color:</label>
+      <select class="color-select">
+        <option value="Verde Militar" data-img-prefix="camiseta-verde">Verde Militar</option>
+        <option value="Marron" data-img-prefix="camiseta-marron">Marron</option>
+        <option value="Morado" data-img-prefix="camiseta-morado">Morado</option>
+        <option value="Rosa" data-img-prefix="camiseta-rosa">Rosa</option>
+        <option value="Fucsia" data-img-prefix="camiseta-fucsia">Fucsia</option>
+        <option value="Negro" data-img-prefix="camiseta-negro">Negro</option>
+        <option value="Gris Oscuro" data-img-prefix="camiseta-gris-oscuro">Gris Oscuro</option>
+        <option value="Gris Claro" data-img-prefix="camiseta-gris-claro">Gris Claro</option>
+      </select>
+
+      <label for="size-select">Talla:</label>
+      <select class="size-select">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <button class="buy-btn snipcart-add-item"
+        data-item-id="rk-camiseta-glitch"
+        data-item-price="19.99"
+        data-item-url="/"
+        data-item-description="Camiseta unisex estilo gothic streetwear con la imagen de nuestra querida mascota."
+        data-item-image="images/camiseta-verde.png"
+        data-item-name="Camiseta RK GLITCH"
+        data-item-custom1-name="Color"
+        data-item-custom1-value="Verde Militar"
+        data-item-custom2-name="Talla"
+        data-item-custom2-value="S">
+        Añadir al carrito
+      </button>
+    </article>
+
+    <!-- SUDADERA RK SHADOW -->
+    <article class="card">
+      <div class="product-thumb slider">
+        <button class="prev-btn">◀</button>
+        <div class="slides">
+          <!-- GRIS -->
+          <img src="images/sudadera-gris.png" alt="Frontal Sudadera Gris" class="slide active" onclick="openFullscreen(this)">
+          <img src="images/sudadera-gris-back.png" alt="Back Sudadera Gris" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-gris-detail.png" alt="Detalle Sudadera Gris" class="slide" onclick="openFullscreen(this)">
+
+          <!-- CLARA -->
+          <img src="images/sudadera-clara.png" alt="Frontal Sudadera Clara" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-clara-back.png" alt="Back Sudadera Clara" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-clara-detail.png" alt="Detalle Sudadera Clara" class="slide" onclick="openFullscreen(this)">
+
+          <!-- NEGRA -->
+          <img src="images/sudadera-negra.png" alt="Frontal Sudadera Negra" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-negra-back.png" alt="Back Sudadera Negra" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-negra-detail.png" alt="Detalle Sudadera Negra" class="slide" onclick="openFullscreen(this)">
+
+          <!-- VERDE -->
+          <img src="images/sudadera-verde.png" alt="Frontal Sudadera Verde" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-verde-back.png" alt="Back Sudadera Verde" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-verde-detail.png" alt="Detalle Sudadera Verde" class="slide" onclick="openFullscreen(this)">
+
+          <!-- GRIS OSCURO -->
+          <img src="images/sudadera-gris-oscuro.png" alt="Frontal Sudadera Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-gris-oscuro-back.png" alt="Back Sudadera Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-gris-oscuro-detail.png" alt="Detalle Sudadera Gris Oscuro" class="slide" onclick="openFullscreen(this)">
+
+          <!-- MARRON -->
+          <img src="images/sudadera-marron.png" alt="Frontal Sudadera Marron" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-marron-back.png" alt="Back Sudadera Marron" class="slide" onclick="openFullscreen(this)">
+          <img src="images/sudadera-marron-detail.png" alt="Detalle Sudadera Marron" class="slide" onclick="openFullscreen(this)">
+        </div>
+        <button class="next-btn">▶</button>
+      </div>
+
+      <div class="product-title">Sudadera RK SHADOW</div>
+      <div class="product-meta">€36.00</div>
+
+      <label for="color-select">Color:</label>
+      <select class="color-select">
+        <option value="Gris" data-img-prefix="sudadera-gris">Gris</option>
+        <option value="Clara" data-img-prefix="sudadera-clara">Clara</option>
+        <option value="Negra" data-img-prefix="sudadera-negra">Negra</option>
+        <option value="Verde" data-img-prefix="sudadera-verde">Verde</option>
+        <option value="Gris Oscuro" data-img-prefix="sudadera-gris-oscuro">Gris Oscuro</option>
+        <option value="Marron" data-img-prefix="sudadera-marron">Marron</option>
+      </select>
+
+      <label for="size-select">Talla:</label>
+      <select class="size-select">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <button class="buy-btn snipcart-add-item"
+        data-item-id="rk-sudadera-shadow"
+        data-item-price="36.00"
+        data-item-url="/"
+        data-item-description="Sudadera unisex estilo gothic streetwear."
+        data-item-image="images/sudadera-gris.png"
+        data-item-name="Sudadera RK SHADOW"
+        data-item-custom1-name="Color"
+        data-item-custom1-value="Gris"
+        data-item-custom2-name="Talla"
+        data-item-custom2-value="S">
+        Añadir al carrito
+      </button>
+    </article>
+
+  </div>
+</main>
+<section id="contacto"> ... </section>
+</footer>
+<footer style="background: linear-gradient(to bottom,#ffb6c1, #ff69b4, #ff1493); color: black; padding: 30px 0; text-align: center;">
+  <p><strong>Escríbenos a:</strong> 
+    <a href="mailto:shopinfork@gmail.com" style="color: black; text-decoration: none;">
+      shopinfork@gmail.com
+    </a>
+  <p><strong>Síguenos en redes sociales:</strong> 
+    <a href="https://instagram.com/rk.styleshop" style="color: black; text-decoration: none;">
+      <span style="color: #ff00ff; font-weight: bold;">@</span>rk.styleshop
+    </a> |
+    <a href="https://instagram.com/rk.styleshop" style="color: black; text-decoration: none;">
+      <span style="color: #ff00ff; font-weight: bold;">@</span>rk.styleshop
+    </a>
+  </p>
+  <p style="margin-top: 20px; color: #ffb6c1; font-weight: bold;">
+    © 2025 RK — Street Gothic Wear
+  </p>
+</footer>
+
+<!-- Snipcart JS --> 
+<script src="https://cdn.snipcart.com/themes/v3.3.3/default/snipcart.js" async></script> 
+<div hidden id="snipcart" data-api-key="YmI5NTcyMDYtZDc3OC00N2YyLWFiZjQtOGM0ODY5OTMzZTc0NjM4OTc0MTc2Mzg0ODQ4ODQ5"></div> 
+
+<script> 
+// Actualiza los valores del botón y cambia la imagen según el color 
+document.querySelectorAll('.card').forEach(card => { 
+  const btn = card.querySelector('.buy-btn'); 
+  const colorSelect = card.querySelector('.color-select'); 
+  const sizeSelect = card.querySelector('.size-select'); 
+  const img = card.querySelector('.product-thumb img'); 
+
+  function updateButton() { 
+    btn.setAttribute('data-item-custom1-value', colorSelect.value); 
+    btn.setAttribute('data-item-custom2-value', sizeSelect.value); 
+    const newImg = colorSelect.selectedOptions[0].dataset.img; 
+    img.src = newImg; 
+    btn.setAttribute('data-item-image', newImg); 
+  } 
+
+  colorSelect.addEventListener('change', updateButton); 
+  sizeSelect.addEventListener('change', updateButton); 
+}); 
+</script> 
+<script>
+  document.querySelectorAll('.card').forEach(card => {
+    const colorSelect = card.querySelector('.color-select');
+    const sizeSelect = card.querySelector('.size-select');
+    const productImg = card.querySelector('.product-thumb img');
+    const buyBtn = card.querySelector('.buy-btn');
+
+    if (colorSelect && productImg && buyBtn) {
+      colorSelect.addEventListener('change', () => {
+        const selectedOption = colorSelect.options[colorSelect.selectedIndex];
+        const newImg = selectedOption.getAttribute('data-img');
+        const newColor = selectedOption.value;
+
+        // Cambia la imagen visible
+        productImg.src = newImg;
+
+        // Actualiza los datos del botón Snipcart
+        buyBtn.setAttribute('data-item-image', newImg);
+        buyBtn.setAttribute('data-item-custom1-value', newColor);
+      });
+    }
+
+    if (sizeSelect && buyBtn) {
+      sizeSelect.addEventListener('change', () => {
+        const newSize = sizeSelect.value;
+        buyBtn.setAttribute('data-item-custom2-value', newSize);
+      });
+    }
+  });
+</script>
+<script>
+document.querySelectorAll('.card').forEach(card => {
+  const slides = card.querySelectorAll('.slide');
+  const nextBtn = card.querySelector('.next-btn');
+  const prevBtn = card.querySelector('.prev-btn');
+  const colorSelect = card.querySelector('.color-select');
+  const buyBtn = card.querySelector('.buy-btn');
+  const sizeSelect = card.querySelector('.size-select');
+  
+  let currentIndex = 0;
+
+  // Cambiar imagen según color seleccionado
+  colorSelect.addEventListener('change', () => {
+    const prefix = colorSelect.selectedOptions[0].dataset.imgPrefix;
+    slides.forEach((slide, i) => {
+      const variants = ["", "-back", "-detail"];
+      slide.src = `images/${prefix}${variants[i]}.png`;
+      slide.alt = `${colorSelect.value} ${variants[i]}`;
+    });
+    buyBtn.setAttribute('data-item-image', `images/${prefix}.png`);
+    buyBtn.setAttribute('data-item-custom1-value', colorSelect.value);
+  });
+
+  // Botones de navegación
+  nextBtn.addEventListener('click', () => {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % slides.length;
+    slides[currentIndex].classList.add('active');
+  });
+
+  prevBtn.addEventListener('click', () => {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    slides[currentIndex].classList.add('active');
+  });
+
+  // Cambiar talla en botón Snipcart
+  sizeSelect.addEventListener('change', () => {
+    buyBtn.setAttribute('data-item-custom2-value', sizeSelect.value);
+  });
+});
+</script>
+<!-- Modal para ver imagen ampliada -->
+<div id="imageModal" class="image-modal">
+  <span class="close-modal" onclick="closeFullscreen()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+<script>
+// Abrir imagen en pantalla completa
+function openFullscreen(imgElement) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  modal.style.display = "flex";
+  modalImg.src = imgElement.src;
+}
+
+// Cerrar imagen ampliada
+function closeFullscreen() {
+  document.getElementById("imageModal").style.display = "none";
+}
+
+// Cerrar al hacer clic fuera de la imagen
+window.onclick = function(event) {
+  const modal = document.getElementById("imageModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const productos = document.querySelectorAll(".card");
+
+  productos.forEach(card => {
+    const slidesContainer = card.querySelector(".slides");
+    const colorSelect = card.querySelector(".color-select");
+    const prevBtn = card.querySelector(".prev-btn");
+    const nextBtn = card.querySelector(".next-btn");
+    let currentIndex = 0;
+
+    // Cargar imágenes dinámicamente
+    const loadImages = (prefix) => {
+      const variantes = ["", "-back", "-detail"];
+      slidesContainer.innerHTML = "";
+      currentIndex = 0;
+
+      variantes.forEach((variant, i) => {
+        const img = document.createElement("img");
+        img.src = `images/${prefix}${variant}.png`;
+        img.alt = `${prefix}${variant}`;
+        img.className = `slide${i === 0 ? " active" : ""}`;
+        img.loading = "lazy";
+        img.onerror = () => img.remove(); // Evita mostrar imágenes inexistentes
+        img.onclick = () => openFullscreen(img);
+        slidesContainer.appendChild(img);
+      });
+    };
+
+    // Función para navegar entre imágenes
+    const updateSlide = (direction) => {
+      const slides = card.querySelectorAll(".slide");
+      if (slides.length === 0) return;
+
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + direction + slides.length) % slides.length;
+      slides[currentIndex].classList.add("active");
+    };
+
+    // Cambio de color
+    colorSelect.addEventListener("change", () => {
+      const prefix = colorSelect.value;
+      loadImages(prefix);
+    });
+
+    // Botones del slider
+    prevBtn.addEventListener("click", () => updateSlide(-1));
+    nextBtn.addEventListener("click", () => updateSlide(1));
+
+    // Cargar color inicial
+    loadImages(colorSelect.value);
+  });
+});
+
+// Pantalla completa (zoom elegante)
+function openFullscreen(img) {
+  const overlay = document.createElement("div");
+  overlay.className = "image-modal";
+  overlay.innerHTML = `
+    <span class="close-modal">&times;</span>
+    <img src="${img.src}" alt="Fullscreen Image">
+  `;
+  document.body.appendChild(overlay);
+  overlay.style.display = "flex";
+
+  overlay.querySelector(".close-modal").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+</script>
+<script>
+window.onload = () => {
+  document.querySelectorAll(".card").forEach(card => {
+    const slidesContainer = card.querySelector(".slides");
+    const colorSelect = card.querySelector(".color-select");
+    const prevBtn = card.querySelector(".prev-btn");
+    const nextBtn = card.querySelector(".next-btn");
+    let currentIndex = 0;
+
+    const variants = ["", "-back", "-detail"];
+
+    // Carga segura de imágenes
+    const loadImages = async (prefix) => {
+      slidesContainer.innerHTML = "";
+      const promises = variants.map(variant => {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.src = `images/${prefix}${variant}.png`;
+          img.className = "slide";
+          img.alt = `${prefix}${variant}`;
+          img.loading = "lazy";
+          img.onclick = () => openFullscreen(img);
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+        });
+      });
+
+      const loadedImages = (await Promise.all(promises)).filter(Boolean);
+      loadedImages.forEach((img, i) => {
+        if (i === 0) img.classList.add("active");
+        slidesContainer.appendChild(img);
+      });
+      currentIndex = 0;
+    };
+
+    // Navegación del slider
+    const updateSlide = (direction) => {
+      const slides = slidesContainer.querySelectorAll(".slide");
+      if (slides.length === 0) return;
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + direction + slides.length) % slides.length;
+      slides[currentIndex].classList.add("active");
+    };
+
+    prevBtn.addEventListener("click", () => updateSlide(-1));
+    nextBtn.addEventListener("click", () => updateSlide(1));
+
+    colorSelect.addEventListener("change", () => {
+      const prefix = colorSelect.selectedOptions[0].dataset.imgPrefix;
+      loadImages(prefix);
+    });
+
+    // Carga inicial
+    const initialPrefix = colorSelect.selectedOptions[0].dataset.imgPrefix;
+    loadImages(initialPrefix);
+  });
+};
+
+// Zoom a pantalla completa
+function openFullscreen(img) {
+  const overlay = document.createElement("div");
+  overlay.className = "fullscreen-overlay";
+  overlay.innerHTML = `<img src="${img.src}" class="fullscreen-img" alt="">`;
+  document.body.appendChild(overlay);
+  overlay.onclick = () => overlay.remove();
+}
+</script>
+<!-- 🛒 BOTÓN PARA ENVIAR PEDIDO DE PRUEBA -->
+<div style="text-align:center; margin-top:50px;">
+  <button id="btnComprar" 
+    style="background:#ff1493; color:white; font-weight:bold; border:none; padding:12px 24px; border-radius:10px; cursor:pointer; box-shadow:0 0 10px rgba(255,20,147,0.5);">
+    🛍️ Realizar pedido de prueba
+  </button>
+</div>
+
+<!-- 🧠 SCRIPT DE ENVÍO DE PEDIDO -->
+<script>
+document.getElementById("btnComprar").addEventListener("click", () => {
+  fetch("/send-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      variant_id: 5035842493, // ✅ tu sync_variant_id real de Printful
+      quantity: 1
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("✅ Pedido enviado a Printful:", data);
+      alert("✅ Pedido enviado correctamente a Printful");
+    })
+    .catch(err => {
+      console.error("❌ Error al enviar pedido:", err);
+      alert("❌ Hubo un error al enviar el pedido. Revisa la consola.");
+    });
+});
+</script>
+</body> 
+</html>
