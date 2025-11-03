@@ -4,47 +4,46 @@ export default async function handler(req, res) {
   }
 
   try {
-    const event = req.body;
+    const order = req.body.content;
 
-    // Verificamos si el evento es de orden completada
-    if (event.eventName !== "order.completed") {
-      return res.status(200).json({ ok: true, message: "Evento ignorado" });
-    }
-
-    const order = event.content;
-
-    // Construimos el pedido para Printful
     const printfulOrder = {
       recipient: {
-        name: order.user.name,
-        address1: order.shippingAddress.address1,
-        city: order.shippingAddress.city,
-        country_code: order.shippingAddress.country,
-        zip: order.shippingAddress.postalCode,
-        email: order.user.email,
+        name: `${order.shippingAddressFirstName} ${order.shippingAddressLastName}`,
+        address1: order.shippingAddressAddress1,
+        city: order.shippingAddressCity,
+        country_code: order.shippingAddressCountry,
+        zip: order.shippingAddressPostalCode,
+        phone: order.shippingAddressPhone,
+        email: order.email,
       },
       items: order.items.map((item) => ({
-        variant_id: item.metadata.printful_variant_id,
+        variant_id: item.id, // el ID del producto Printful
         quantity: item.quantity,
       })),
     };
 
-    // Enviamos el pedido a Printful
     const response = await fetch("https://api.printful.com/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.PRINTFUL_KEY}`,
+        Authorization: `Bearer ${process.env.PRINTFUL_API_KEY}`,
       },
       body: JSON.stringify(printfulOrder),
     });
 
     const data = await response.json();
-    console.log("Printful response:", data);
 
-    return res.status(200).json({ ok: true, printful: data });
-  } catch (error) {
-    console.error("Error creando pedido:", error);
-    return res.status(500).json({ error: error.message });
+    if (!response.ok) {
+      console.error("Error Printful:", data);
+      return res.status(400).json({ error: data });
+    }
+
+    res.status(200).json({ message: "Pedido enviado a Printful", data });
+  } catch (err) {
+    console.error("Error procesando pedido:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+}
+
   }
 }
