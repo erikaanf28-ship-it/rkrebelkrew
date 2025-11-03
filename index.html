@@ -1133,11 +1133,11 @@ function openFullscreen(img) {
 <!-- 🧠 SCRIPT DE ENVÍO DE PEDIDO -->
 <script>
 document.getElementById("btnComprar").addEventListener("click", () => {
-  fetch("/send-order", {
-    method: "POST",
+ fetch("https://rk-server.onrender.com/send-order", {
+method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      variant_id: 5035842493, // ✅ tu sync_variant_id real de Printful
+      variant_id: 5035842493, // ✅ ID real del producto de Printful
       quantity: 1
     })
   })
